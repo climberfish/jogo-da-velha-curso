@@ -18,7 +18,7 @@ function partidaCriada(id) {
 
 <template>
   <header>
-    <h1>Jogo da Velha</h1>
+    <h1>Jogo da Velha - Curso de desenvolvimento web com Node.js, Express, Vue.js e PostgreSQL</h1>
   </header>
 
   <main>
