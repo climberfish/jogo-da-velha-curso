@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:16.1
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=passwd
+      - POSTGRES_USER=user-jogo-da-velha
+      - POSTGRES_DB=jogo_da_velha
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
