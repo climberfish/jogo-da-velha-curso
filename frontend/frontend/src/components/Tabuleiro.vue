@@ -16,8 +16,13 @@ async function atualizarPartida() {
 }
 setInterval(atualizarPartida, 300);
 
-function jogar(linha, coluna) {
-  tabuleiro.value[linha][coluna] = 'X';
+async function jogar(linha, coluna) {
+  if (tabuleiro.value[linha][coluna] !== '') return;
+
+  await axios.post(`http://localhost:3000/partida/${props.sala}/jogada`, {
+    jogador: props.usuario,
+    coordenadas: [linha, coluna],
+  });
 }
 </script>
 
@@ -25,22 +30,33 @@ function jogar(linha, coluna) {
     <p>Número da sala: {{ props.sala }}</p>
     <p>Jogador: {{ props.usuario }}</p>
     <p v-if="!partida?.jogador_2">Aguardando outro jogador...</p>
-    <p v-else>Jogando contra: {{ props.usuario === partida.jogador_1 ? partida.jogador_2 : partida.jogador_1 }}</p>
+    <div v-else>
+      <p>Jogando contra: {{ props.usuario === partida.jogador_1 ? partida.jogador_2 : partida.jogador_1 }}</p>
+      <p v-if="partida.status === 'EM_ANDAMENTO'">
+        Jogador da vez: {{ partida.jogador_atual }}
+      </p>
+      <p v-else-if="partida.status === 'FINALIZADA'">
+        Ganhador: {{ partida.vencedor || 'EMPATE' }}
+      </p>
+    </div>
     <div class="tabuleiro">
         <div
             class="linha"
             v-for="(linha, indexLinha) in tabuleiro"
             :key="indexLinha"
         >
-            <div
-                class="celula"
-                v-for="(coluna, indexColuna) in linha"
-                :key="indexColuna"
-                @click="jogar(indexLinha, indexColuna)"
-            >
-                {{ tabuleiro[indexLinha][indexColuna] }}
-            </div>
+        <div
+          v-for="(coluna, indexColuna) in linha"
+          :key="indexColuna"
+          :class="{
+            celula: true,
+            'celula-vermelha': tabuleiro[indexLinha][indexColuna] === 'X',
+          }"
+          @click="jogar(indexLinha, indexColuna)"
+        >
+            {{ tabuleiro[indexLinha][indexColuna] }}
         </div>
+      </div>
     </div>
 </template>
 
@@ -61,6 +77,14 @@ function jogar(linha, coluna) {
 .tabuleiro > .linha > .celula {
   width: 30%;
   height: 40px;
-  border: 1px solid #363636;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: darkblue;
+  background-color: #ffe6e6;
+}
+.tabuleiro > .linha > .celula-vermelha {
+  color: darkred;
 }
 </style>

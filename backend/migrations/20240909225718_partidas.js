@@ -17,6 +17,8 @@ exports.up = function(knex) {
             table.integer('partida_id').references('id').inTable('partidas').notNullable();
             table.string('valor', 1).notNullable();
             table.string('jogador', 255).notNullable();
+            table.string('coordenadas', 3).notNullable();
+            table.unique(['partida_id', 'coordenadas']);
         });
 };
 
