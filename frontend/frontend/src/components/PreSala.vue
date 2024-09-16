@@ -8,7 +8,7 @@ const emit = defineEmits(['partidaCriada']);
 
 const props = defineProps(['usuario']);
 
-const API_URL = process.env.API_URL || 'http://localhost:3000';
+const API_URL = process.env.VITE_API_URL || 'http://localhost:3000';
 
 async function criarPartida() {
     const resposta = await axios.post(`${API_URL}/partida`, {
