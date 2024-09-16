@@ -10,7 +10,8 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(cors());
 
-const bancoDeDados = knex(knexfile.development);
+const ENVIRONMENT = process.env.NODE_ENV || 'development';
+const bancoDeDados = knex(knexfile[ENVIRONMENT]);
 
 const gerarTabuleiroBase = () => [
   ['', '', ''],
