@@ -10,7 +10,7 @@ const tabuleiro = computed(() => {
   return partida.value?.tabuleiro || [];
 });
 
-const API_URL = process.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 async function atualizarPartida() {
   const resposta = await axios.get(`${API_URL}/partida/${props.sala}`);
