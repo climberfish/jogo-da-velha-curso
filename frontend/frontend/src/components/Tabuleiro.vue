@@ -10,8 +10,10 @@ const tabuleiro = computed(() => {
   return partida.value?.tabuleiro || [];
 });
 
+const API_URL = process.env.API_URL || 'http://localhost:3000';
+
 async function atualizarPartida() {
-  const resposta = await axios.get(`http://localhost:3000/partida/${props.sala}`);
+  const resposta = await axios.get(`${API_URL}/partida/${props.sala}`);
   partida.value = resposta.data;
 }
 setInterval(atualizarPartida, 300);
@@ -19,7 +21,7 @@ setInterval(atualizarPartida, 300);
 async function jogar(linha, coluna) {
   if (tabuleiro.value[linha][coluna] !== '') return;
 
-  await axios.post(`http://localhost:3000/partida/${props.sala}/jogada`, {
+  await axios.post(`${API_URL}/partida/${props.sala}/jogada`, {
     jogador: props.usuario,
     coordenadas: [linha, coluna],
   });

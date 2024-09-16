@@ -8,8 +8,10 @@ const emit = defineEmits(['partidaCriada']);
 
 const props = defineProps(['usuario']);
 
+const API_URL = process.env.API_URL || 'http://localhost:3000';
+
 async function criarPartida() {
-    const resposta = await axios.post('http://localhost:3000/partida', {
+    const resposta = await axios.post(`${API_URL}/partida`, {
         jogador_1: props.usuario,
     });
     emit('partidaCriada', resposta.data.id);
@@ -17,7 +19,7 @@ async function criarPartida() {
 
 async function entrarNaSala() {
     try {
-        const resposta = await axios.put(`http://localhost:3000/partida/${sala.value}`, {
+        const resposta = await axios.put(`${API_URL}/partida/${sala.value}`, {
             jogador_2: props.usuario,
         });
         emit('partidaCriada', resposta.data.id);
