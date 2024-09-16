@@ -5,6 +5,7 @@
   "main": "index.mjs",
   "scripts": {
     "dev": "nodemon index.mjs",
+    "start": "node index.mjs",
     "knex:migrate": "knex migrate:latest",
     "knex:migrate:rollback": "knex migrate:rollback",
     "knex:migrate:new": "knex migrate:make"
