@@ -14,7 +14,7 @@ const ENVIRONMENT = process.env.NODE_ENV || 'development';
 const bancoDeDados = knex(knexfile[ENVIRONMENT]);
 
 const gerarTabuleiroBase = () => [
-  ['', '', ''],
+  ['', 'X', ''],
   ['', '', ''],
   ['', '', ''],
 ];
