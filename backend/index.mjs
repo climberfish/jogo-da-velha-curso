@@ -165,5 +165,5 @@ app.post('/partida/:partida_id/jogada/', async (req, res) => {
 
 
 app.listen(PORT, () => {
-  console.log(`O servidor está rodando na porta ${PORT}`);
+  console.log(`Pronto: O servidor está rodando na porta ${PORT}`);
 });
